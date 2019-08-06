@@ -43,7 +43,8 @@ SickTim5512050001Parser::SickTim5512050001Parser() :
     AbstractParser(),
     override_range_min_(0.05),
     override_range_max_(10.0),
-    override_time_increment_(-1.0)
+    override_time_increment_(-1.0),
+    override_hostname_("198.168.20.101")
 {
 }
 
@@ -319,6 +320,11 @@ void SickTim5512050001Parser::set_range_max(float max)
 void SickTim5512050001Parser::set_time_increment(float time)
 {
   override_time_increment_ = time;
+}
+
+void SickTim5512050001Parser::set_host_name(std::string hostname)
+{
+  override_hostname_ = hostname;
 }
 
 } /* namespace sick_tim */

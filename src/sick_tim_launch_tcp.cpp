@@ -46,34 +46,23 @@ int main(int argc, char **argv)
   // check for TCP - use if ~hostname is set.
   bool useTCP = false;
   std::string hostname;
-  if(nhPriv.getParam("hostname", hostname)) {
+  if(nhPriv.getParam("hostname", hostname) && nhPriv.getParam("subnetmask", subnetmask) ) {
       useTCP = true;
   }
   std::string port;
-  nhPriv.param<std::string>("port", port, "2112");
+  nhPriv.param<std::string>("port", port, "2111");
 
   int timelimit;
   nhPriv.param("timelimit", timelimit, 5);
 
-  bool subscribe_datagram;
-  int device_number;
-  nhPriv.param("subscribe_datagram", subscribe_datagram, false);
-  nhPriv.param("device_number", device_number, 0);
+  
 
   sick_tim::SickTim5512050001Parser* parser = new sick_tim::SickTim5512050001Parser();
 
   double param;
-  if (nhPriv.getParam("range_min", param))
+   if (nhPriv.getParam("new_hostname", param))
   {
-    parser->set_range_min(param);
-  }
-  if (nhPriv.getParam("range_max", param))
-  {
-    parser->set_range_max(param);
-  }
-  if (nhPriv.getParam("time_increment", param))
-  {
-    parser->set_time_increment(param);
+    parser->set_hostname(param);
   }
 
   sick_tim::SickTimCommon* s = NULL;
