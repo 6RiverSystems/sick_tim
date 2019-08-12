@@ -56,7 +56,7 @@ void set_host_name(std::string hostname);
 private:
   float override_range_min_, override_range_max_;
   float override_time_increment_;
-  std::string override_hostname_;
+  std::string override_host_name_;
 };
 
 } /* namespace sick_tim */
