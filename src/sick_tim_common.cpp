@@ -110,6 +110,18 @@ int SickTimCommon::init()
 
 int SickTimCommon::init_scanner()
 {
+
+  /*
+   * Set IP address the SOPAS variable 'DeviceIdent' by index.
+   */
+  const char setDeviceIP[] = "\x02sWN EIIpAddr C0 A8 14 63\x03\0";
+  std::vector<unsigned char> identReply;
+  int result = sendSOPASCommand(setDeviceIP, &identReply);
+  if (result != 0)
+  {
+    ROS_ERROR("SOPAS - Error setting device IP 'DeviceIdent'.");
+    diagnostics_.broadcast(diagnostic_msgs::DiagnosticStatus::ERROR, "SOPAS - Error setting device IP.");
+  }
   /*
    * Read the SOPAS variable 'DeviceIdent' by index.
    */
