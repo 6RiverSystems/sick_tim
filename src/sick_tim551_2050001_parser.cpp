@@ -45,7 +45,6 @@ SickTim5512050001Parser::SickTim5512050001Parser() :
     override_range_max_(10.0),
     override_time_increment_(-1.0),
     // override_hostname_("198.168.20.101")
-{
 }
 
 SickTim5512050001Parser::~SickTim5512050001Parser()

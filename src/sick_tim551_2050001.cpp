@@ -44,7 +44,7 @@ int main(int argc, char **argv)
   ros::NodeHandle nhPriv("~");
 
   // check for TCP - use if ~hostname is set.
-  bool useTCP = false;
+  bool useTCP = true;
   std::string hostname;
   if(nhPriv.getParam("hostname", hostname)) {
       useTCP = true;
