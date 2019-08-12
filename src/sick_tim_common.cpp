@@ -127,7 +127,7 @@ int SickTimCommon::init_scanner()
    */
   const char requestDeviceIdent[] = "\x02sRI0\x03\0";
   std::vector<unsigned char> identReply;
-  int result = sendSOPASCommand(requestDeviceIdent, &identReply);
+  result = sendSOPASCommand(requestDeviceIdent, &identReply);
   if (result != 0)
   {
     ROS_ERROR("SOPAS - Error reading variable 'DeviceIdent'.");
