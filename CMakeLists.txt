@@ -32,10 +32,6 @@ add_dependencies(sick_tim_3xx ${PROJECT_NAME}_gencfg ${catkin_EXPORTED_TARGETS})
 target_link_libraries(sick_tim_3xx
     ${catkin_LIBRARIES}
     ${libusb_LIBRARIES})
-add_executable(sick_tim_launch_tcp
-    src/sick_tim551_2050001.cpp
-    src/sick_tim_common_tcp.cpp
-    src/sick_tim551_2050001_parser.cpp)
 target_link_libraries(sick_tim551_2050001 sick_tim_3xx)
 add_executable(sick_tim310s01
     src/sick_tim310s01.cpp
