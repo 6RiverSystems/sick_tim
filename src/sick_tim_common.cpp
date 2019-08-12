@@ -126,7 +126,6 @@ int SickTimCommon::init_scanner()
    * Read the SOPAS variable 'DeviceIdent' by index.
    */
   const char requestDeviceIdent[] = "\x02sRI0\x03\0";
-  std::vector<unsigned char> identReply;
   result = sendSOPASCommand(requestDeviceIdent, &identReply);
   if (result != 0)
   {
