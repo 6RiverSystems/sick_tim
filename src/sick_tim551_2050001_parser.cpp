@@ -43,8 +43,8 @@ SickTim5512050001Parser::SickTim5512050001Parser() :
     AbstractParser(),
     override_range_min_(0.05),
     override_range_max_(10.0),
-    override_time_increment_(-1.0),
-    // override_hostname_("198.168.20.101")
+    override_time_increment_(-1.0)
+{
 }
 
 SickTim5512050001Parser::~SickTim5512050001Parser()
