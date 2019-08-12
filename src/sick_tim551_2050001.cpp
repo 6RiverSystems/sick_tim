@@ -64,9 +64,9 @@ int main(int argc, char **argv)
  double param;
    if (nhPriv.getParam("new_hostname", param))
   {
-    parser->set_hostname(param);
+    parser->set_host_name(param);
   }
-  double param;
+
   if (nhPriv.getParam("range_min", param))
   {
     parser->set_range_min(param);
