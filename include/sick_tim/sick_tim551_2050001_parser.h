@@ -52,7 +52,7 @@ public:
   void set_range_min(float min);
   void set_range_max(float max);
   void set_time_increment(float time);
-void set_host_name(std::string hostname);
+// void set_host_name(std::string hostname);
 private:
   float override_range_min_, override_range_max_;
   float override_time_increment_;
