@@ -50,7 +50,7 @@ int main(int argc, char **argv)
       useTCP = true;
   }
   std::string port;
-  nhPriv.param<std::string>("port", port, "2111");
+  nhPriv.param<std::string>("port", port, "2112");
 
   int timelimit;
   nhPriv.param("timelimit", timelimit, 5);

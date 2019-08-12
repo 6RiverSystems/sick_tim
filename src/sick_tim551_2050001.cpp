@@ -61,7 +61,11 @@ int main(int argc, char **argv)
   nhPriv.param("device_number", device_number, 0);
 
   sick_tim::SickTim5512050001Parser* parser = new sick_tim::SickTim5512050001Parser();
-
+ double param;
+   if (nhPriv.getParam("new_hostname", param))
+  {
+    parser->set_hostname(param);
+  }
   double param;
   if (nhPriv.getParam("range_min", param))
   {
