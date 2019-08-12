@@ -62,10 +62,10 @@ int main(int argc, char **argv)
 
   sick_tim::SickTim5512050001Parser* parser = new sick_tim::SickTim5512050001Parser();
  double param;
-   if (nhPriv.getParam("new_hostname", param))
-  {
-    parser->set_host_name(param);
-  }
+  //  if (nhPriv.getParam("new_hostname", param))
+  // {
+  //   parser->set_host_name(param);
+  // }
 
   if (nhPriv.getParam("range_min", param))
   {
