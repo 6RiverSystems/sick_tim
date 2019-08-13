@@ -44,9 +44,9 @@ int main(int argc, char **argv)
   ros::NodeHandle nhPriv("~");
 
   // check for TCP - use if ~hostname is set.
-  bool useTCP = true;
-  std::string hostname;
-  if(nhPriv.getParam("hostname", hostname)) {
+  bool useTCP = false;
+  // std::string hostname;
+  if(nhPriv.getParam("hostname", hostname) && nhPriv.getParam("subnetmask", subnetmask) ) {
       useTCP = true;
   }
   std::string port;
@@ -55,30 +55,15 @@ int main(int argc, char **argv)
   int timelimit;
   nhPriv.param("timelimit", timelimit, 5);
 
-  bool subscribe_datagram;
-  int device_number;
-  nhPriv.param("subscribe_datagram", subscribe_datagram, false);
-  nhPriv.param("device_number", device_number, 0);
+  
 
   sick_tim::SickTim5512050001Parser* parser = new sick_tim::SickTim5512050001Parser();
- double param;
+
+  double param;
   //  if (nhPriv.getParam("new_hostname", param))
   // {
-  //   parser->set_host_name(param);
+  //   parser->set_hostname(param);
   // }
-
-  if (nhPriv.getParam("range_min", param))
-  {
-    parser->set_range_min(param);
-  }
-  if (nhPriv.getParam("range_max", param))
-  {
-    parser->set_range_max(param);
-  }
-  if (nhPriv.getParam("time_increment", param))
-  {
-    parser->set_time_increment(param);
-  }
 
   sick_tim::SickTimCommon* s = NULL;
 
@@ -87,11 +72,10 @@ int main(int argc, char **argv)
   {
     // Atempt to connect/reconnect
     delete s;
-    if (useTCP)
-      s = new sick_tim::SickTimCommonTcp(hostname, port, timelimit, parser);
-    else if (subscribe_datagram)
+    if (subscribe_datagram)
       s = new sick_tim::SickTimCommonMockup(parser);
-    else 
+    else if (useTCP)
+      s = new sick_tim::SickTimCommonTcp(hostname, port, timelimit, parser);
     else
       s = new sick_tim::SickTimCommonUsb(parser, device_number);
     result = s->init();

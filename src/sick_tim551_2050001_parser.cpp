@@ -321,4 +321,9 @@ void SickTim5512050001Parser::set_time_increment(float time)
   override_time_increment_ = time;
 }
 
+// void SickTim5512050001Parser::set_host_name(std::string hostname)
+// {
+//   override_hostname_ = hostname;
+// }
+
 } /* namespace sick_tim */

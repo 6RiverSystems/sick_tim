@@ -96,7 +96,43 @@ SickTimCommon::~SickTimCommon()
 
 int SickTimCommon::init()
 {
-  int result = init_device();
+  const char setAccessMode[] = "\x02sMN SetAccessMode 03 F4724744\x03\0";
+ 
+  int result = sendSOPASCommand(setAccessMode, NULL);
+  if (result != 0)
+  {
+    ROS_ERROR("SOPAS - Error setting access mode.: %d", result);
+    diagnostics_.broadcast(diagnostic_msgs::DiagnosticStatus::ERROR, "SOPAS - Error setting access mode.");
+  }
+  const char readDeviceIP[] = "\x02sRN EIIpAddr\x03\0";
+   std::vector<unsigned char> IPReply;
+  result = sendSOPASCommand(readDeviceIP, &IPReply);
+  if (result != 0)
+  {
+    ROS_ERROR("SOPAS - Error initial reading device IP.: %d", result);
+    diagnostics_.broadcast(diagnostic_msgs::DiagnosticStatus::ERROR, "SOPAS - Error initial reading device IP.");
+  }
+    /*
+   * Set IP address the SOPAS variable by index.
+   */
+ 
+  const char setDeviceIP[] = "\x02sWN EIIpAddr C0 A8 14 63\x03\0";
+ 
+  result = sendSOPASCommand(setDeviceIP, NULL);
+  if (result != 0)
+  {
+    ROS_ERROR("SOPAS - Error setting device IP.: %d", result);
+    diagnostics_.broadcast(diagnostic_msgs::DiagnosticStatus::ERROR, "SOPAS - Error setting device IP.");
+  }
+  const char readFinalDeviceIP[] = "\x02sRN EIIpAddr\x03\0";
+   std::vector<unsigned char> IPFinalReply;
+  result = sendSOPASCommand(readFinalDeviceIP, &IPFinalReply);
+  if (result != 0)
+  {
+    ROS_ERROR("SOPAS - Error reading final device IP.: %d", result);
+    diagnostics_.broadcast(diagnostic_msgs::DiagnosticStatus::ERROR, "SOPAS - Error reading final device IP.");
+  }
+  result = init_device();
   if(result != 0) {
       ROS_FATAL("Failed to init device: %d", result);
       return result;
@@ -110,6 +146,8 @@ int SickTimCommon::init()
 
 int SickTimCommon::init_scanner()
 {
+
+
   /*
    * Read the SOPAS variable 'DeviceIdent' by index.
    */
