@@ -95,6 +95,15 @@ SickTimCommon::~SickTimCommon()
 
 
 int SickTimCommon::init()
+{
+  const char setAccessMode[] = "\x02sMN SetAccessMode 03 F4724744\x03\0";
+ 
+  int result = sendSOPASCommand(setAccessMode, NULL);
+  if (result != 0)
+  {
+    ROS_ERROR("SOPAS - Error setting access mode.: %d", result);
+    diagnostics_.broadcast(diagnostic_msgs::DiagnosticStatus::ERROR, "SOPAS - Error setting access mode: %d", result);
+  }
   const char readDeviceIP[] = "\x02sRN EIIpAddr\x03\0";
    std::vector<unsigned char> IPReply;
   result = sendSOPASCommand(readDeviceIP, &IPReply);
@@ -103,7 +112,6 @@ int SickTimCommon::init()
     ROS_ERROR("SOPAS - Error initial reading device IP.: %d", result);
     diagnostics_.broadcast(diagnostic_msgs::DiagnosticStatus::ERROR, "SOPAS - Error initial reading device IP.: %d", result);
   }
-{
     /*
    * Set IP address the SOPAS variable by index.
    */
