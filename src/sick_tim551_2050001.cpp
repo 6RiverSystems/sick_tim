@@ -87,10 +87,11 @@ int main(int argc, char **argv)
   {
     // Atempt to connect/reconnect
     delete s;
-    if (subscribe_datagram)
-      s = new sick_tim::SickTimCommonMockup(parser);
-    else if (useTCP)
+    if (useTCP)
       s = new sick_tim::SickTimCommonTcp(hostname, port, timelimit, parser);
+    else if (subscribe_datagram)
+      s = new sick_tim::SickTimCommonMockup(parser);
+    else 
     else
       s = new sick_tim::SickTimCommonUsb(parser, device_number);
     result = s->init();
