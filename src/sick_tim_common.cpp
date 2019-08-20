@@ -124,6 +124,28 @@ int SickTimCommon::init()
     ROS_ERROR("SOPAS - Error setting device IP.: %d", result);
     diagnostics_.broadcast(diagnostic_msgs::DiagnosticStatus::ERROR, "SOPAS - Error setting device IP.");
   }
+    /*
+   * store the lidar parameters
+   */
+  const char storeLidarParam[] = "\x02sAN mEEwriteall 1\x03\0";
+ 
+  result = sendSOPASCommand(storeLidarParam, NULL);
+  if (result != 0)
+  {
+    ROS_ERROR("SOPAS - Error storing Lidar param.: %d", result);
+    diagnostics_.broadcast(diagnostic_msgs::DiagnosticStatus::ERROR, "SOPAS - EError storing Lidar param.");
+  }
+    /*
+   * Set IP address the SOPAS variable by index.
+   */
+  const char setLogOut[] = "\x02sMN Run\x03\0";
+ 
+  result = sendSOPASCommand(setLogOut, NULL);
+  if (result != 0)
+  {
+    ROS_ERROR("SOPAS - Error logging out.: %d", result);
+    diagnostics_.broadcast(diagnostic_msgs::DiagnosticStatus::ERROR, "SOPAS - Error logging out.");
+  }
   const char readFinalDeviceIP[] = "\x02sRN EIIpAddr\x03\0";
    std::vector<unsigned char> IPFinalReply;
   result = sendSOPASCommand(readFinalDeviceIP, &IPFinalReply);
