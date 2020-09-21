@@ -1,5 +1,8 @@
 <launch>
     <!-- Sick LIDAR -->
+    <arg name="lidar_affinity" value="$(env ROSENV_LIDAR_AFFINITY)"/>
+    <arg name="lidar_affinity_prefix" default="$(eval ['', 'taskset -c ' + str(lidar_affinity)][lidar_affinity != -1])"/>
+    
     <node name="sick_tim571_2050101" pkg="sick_tim" type="sick_tim551_2050001"
             respawn="false" output="screen" launch-prefix="$(arg lidar_affinity_prefix)">
         <param name="min_ang" type="double" value="-1.81986"/>
